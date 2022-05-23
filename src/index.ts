@@ -2,21 +2,12 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import { nanoid } from 'nanoid';
 
+import { isValidUrl } from './utils';
+
 const app = express();
 
 const db = new Map<string,
   { originalUrl: string; shortUrl: string; nbClicks: number }>();
-
-
-function isValidUrl(url: string): boolean {
-  try {
-    new URL(url);
-
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
 
 async function bootstrap() {
   app.use(bodyParser.json());
